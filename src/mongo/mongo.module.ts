@@ -7,8 +7,8 @@ import {MongoConfig} from "./mongo.config";
 @Module({
   imports: [
       MongooseModule.forRootAsync({
-          useFactory: async (configService: MongoConfig) => ({
-              uri: configService.getMongoUri(),
+          useFactory: async (mongoConfig: MongoConfig) => ({
+              uri: mongoConfig.getMongoUri(),
           }),
           imports: [MongoModule],
           inject: [MongoConfig],
