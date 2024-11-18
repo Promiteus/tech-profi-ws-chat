@@ -14,8 +14,6 @@ export class RedisIoAdapter extends IoAdapter{
         const port = config.getOrThrow('REDIS_PORT') ?? 6379;
         const password = config.getOrThrow('REDIS_PASSWORD') ?? '';
 
-        console.warn(`host: ${host}; port: ${port}; password: ${password}`)
-
         const pubClient = createClient({ url: `redis://${host}:${port}`, password: password });
         const subClient = pubClient.duplicate();
 
