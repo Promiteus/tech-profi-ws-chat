@@ -39,7 +39,7 @@ const ChatPage = () => {
         });
 
         socket.on('chat', (e) => {
-            setMessages((messages) => [e, ...messages])
+            setMessages((messages) => [...messages, e])
         });
         return () => {
             closeSocket(socket);
