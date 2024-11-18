@@ -15,7 +15,7 @@ const ChatPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        socket = io("http://chat.profi.loc", {
+        socket = io("http://localhost:4000", {
             path: '/socket.io',
             transports: ['websocket'],
             autoConnect: true
