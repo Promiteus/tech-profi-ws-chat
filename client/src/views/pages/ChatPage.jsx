@@ -61,7 +61,6 @@ const ChatPage = () => {
                 user: user.userId,
                 userName: user?.userName,
             },
-            timeSent: new Date().toLocaleString(),
             roomName: roomName,
             message: val,
         })
