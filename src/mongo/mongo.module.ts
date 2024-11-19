@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongoService } from './mongo.service';
 import {MongooseModule} from "@nestjs/mongoose";
 import {MongoConfig} from "./mongo.config";
-import {ChatModel, ChatSchema} from "./models/chat.model";
+import {ChatMessage, ChatSchema} from "./models/chat.message";
 
 @Module({
   imports: [
@@ -13,7 +13,7 @@ import {ChatModel, ChatSchema} from "./models/chat.model";
           imports: [MongoModule],
           inject: [MongoConfig],
       }),
-      MongooseModule.forFeature([{name: ChatModel.name, schema: ChatSchema}])
+      MongooseModule.forFeature([{name: ChatMessage.name, schema: ChatSchema}])
   ],
   exports: [MongoConfig],
   providers: [MongoService, MongoConfig]

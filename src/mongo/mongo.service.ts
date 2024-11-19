@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import {InjectModel} from "@nestjs/mongoose";
-import {ChatDocument, ChatModel} from "./models/chat.model";
+import {ChatDocument, ChatMessage} from "./models/chat.message";
 import {Model} from "mongoose";
-import {ChatDto} from "./dto/chat.dto";
+import {ChatMessageDto} from "./dto/chat.message.dto";
 
 @Injectable()
 export class MongoService {
-    constructor(@InjectModel(ChatModel.name) private readonly  chatModel: Model<ChatDocument>) {
+    constructor(@InjectModel(ChatMessage.name) private readonly  chatModel: Model<ChatDocument>) {
     }
 
     /**
      * Создать сообщение чата
-     * @param chatDto ChatDto
+     * @param chatDto ChatMessageDto
      */
-    async create(chatDto: ChatDto) {
+    async create(chatDto: ChatMessageDto) {
         return await new this.chatModel({
             ...chatDto,
             createdAt: new Date(),
@@ -23,9 +23,9 @@ export class MongoService {
     /**
      * Обновить сообщение чата
      * @param id string
-     * @param chatDto ChatDto
+     * @param chatDto ChatMessageDto
      */
-    async update(id: string, chatDto: ChatDto) {
+    async update(id: string, chatDto: ChatMessageDto) {
         return await this.chatModel.findByIdAndUpdate(id, chatDto).exec();
     }
 
@@ -33,7 +33,7 @@ export class MongoService {
      * Удалить сообщение чата
      * @param id string
      */
-    async delete(id: string): Promise<ChatModel> {
+    async delete(id: string): Promise<ChatMessage> {
         return await this.chatModel.findByIdAndDelete(id).exec();
     }
 }
