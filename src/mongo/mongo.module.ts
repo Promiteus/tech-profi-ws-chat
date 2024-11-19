@@ -8,7 +8,7 @@ import {ChatMessage, ChatSchema} from "./models/chat.message";
   imports: [
       MongooseModule.forRootAsync({
           useFactory: async (mongoConfig: MongoConfig) => ({
-              uri: mongoConfig.getMongoUri(),
+              uri: mongoConfig.getMongoUri()
           }),
           imports: [MongoModule],
           inject: [MongoConfig],

@@ -6,7 +6,7 @@ import {ChatMessageDto} from "./dto/chat.message.dto";
 
 @Injectable()
 export class MongoService {
-    constructor(@InjectModel(ChatMessage.name) private readonly  chatModel: Model<ChatDocument>) {
+    constructor(@InjectModel(ChatMessage.name) private readonly chatModel: Model<ChatDocument>) {
     }
 
     /**
