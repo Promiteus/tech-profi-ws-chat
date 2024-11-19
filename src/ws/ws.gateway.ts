@@ -17,15 +17,18 @@ export class WsGateway implements  OnGatewayConnection, OnGatewayDisconnect{
 
     @SubscribeMessage('chat')
     async handleChat(@MessageBody() payload: Message): Promise<Message> {
-        if (payload.join && payload.user.socketId) {
-           this.logger.log(`${payload.user.socketId} is joining ${payload.roomName}`);
-           await this.server.in(payload.user.socketId).socketsJoin(payload.roomName);
-           return;
-        }
-
         this.logger.log(`payload: ${JSON.stringify(payload)}`);
         this.server.to(payload.roomName).emit('chat', payload);
         return payload;
+    }
+
+    @SubscribeMessage('join')
+    async joinRoom(@MessageBody() payload: Message): Promise<Message> {
+        if (payload.user.socketId) {
+            this.logger.log(`${payload.user.socketId} is joining ${payload.roomName}`);
+            await this.server.in(payload.user.socketId).socketsJoin(payload.roomName);
+        }
+        return;
     }
 
     async handleConnection(client: any, ...args: any[]) {
