@@ -6,9 +6,8 @@ export interface User {
 
 export interface Message {
     user: User
-    timeSent: string
+    fromUser: User
     message: string
     roomName: string
-    join: boolean
 }
 

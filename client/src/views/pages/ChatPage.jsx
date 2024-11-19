@@ -50,6 +50,7 @@ const ChatPage = () => {
             socket.off('connect');
             socket.off('disconnect')
             socket.off('chat');
+            socket.off('join');
             socket.close();
         }
     }
@@ -63,7 +64,6 @@ const ChatPage = () => {
             timeSent: new Date().toLocaleString(),
             roomName: roomName,
             message: val,
-            join: false,
         })
     }
 

@@ -6,7 +6,7 @@ import {
     WebSocketServer
 } from "@nestjs/websockets";
 import {Server} from 'socket.io';
-import {Message} from "./ws.interface";
+import {Message} from "./interfaces/ws.interface";
 import {Logger} from "@nestjs/common";
 
 @WebSocketGateway({cors: {origin: '*'}})
