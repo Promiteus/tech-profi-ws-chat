@@ -26,9 +26,8 @@ const ChatPage = () => {
         }
 
         socket.on('connect', () => {
-            socket.emit('chat', {
+            socket.emit('join', {
                 roomName,
-                join: true,
                 user: { socketId: socket.id, ...user },
             })
             setConnected(true);
