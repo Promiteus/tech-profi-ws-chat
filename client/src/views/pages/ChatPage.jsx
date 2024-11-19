@@ -4,6 +4,7 @@ import SendView from "../SendView";
 import {useEffect, useState} from "react";
 import {io} from "socket.io-client";
 import {useNavigate} from "@tanstack/react-location";
+import {users} from "./LoginPage";
 
 let socket = null;
 
@@ -11,6 +12,7 @@ const ChatPage = () => {
     const [connected, setConnected] = useState(false);
     const [messages, setMessages] = useState([]);
     const user = JSON.parse(sessionStorage.getItem('user_ws') ?? null);
+    const userIndex = +(sessionStorage.getItem('user_index') ?? 0);
     const roomName = sessionStorage.getItem('room_ws');
     const navigate = useNavigate();
 
@@ -56,10 +58,21 @@ const ChatPage = () => {
     }
 
     const onSend = (val) => {
+        let fUser = null;
+        if (userIndex === 0) {
+            fUser = users[userIndex+1];
+        } else {
+            fUser = users[userIndex-1];
+        }
+
         socket.emit('chat', {
             user: {
                 user: user.userId,
                 userName: user?.userName,
+            },
+            fromUser: {
+                user: fUser?.userId,
+                userName: fUser?.userName,
             },
             roomName: roomName,
             message: val,

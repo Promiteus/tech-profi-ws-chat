@@ -14,12 +14,14 @@ export class MongoService {
      * @param chatDto ChatMessageDto
      */
     async create(chatDto: ChatMessageDto) {
-        return await new this.chatModel({
+        let data = {
             ...chatDto,
             createdAt: new Date(),
             isRead: false,
             isNotified: false
-        }).save();
+        };
+        console.warn("create: "+JSON.stringify(data))
+        return await new this.chatModel(data).save();
     }
 
     /**

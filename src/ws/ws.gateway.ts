@@ -22,9 +22,10 @@ export class WsGateway implements  OnGatewayConnection, OnGatewayDisconnect{
     async handleChat(@MessageBody() payload: Message): Promise<Message> {
         this.logger.log(`payload: ${JSON.stringify(payload)}`);
         this.server.to(payload.roomName).emit('chat', payload);
+
         await this.mongoService.create({
-            fromUserId: payload.fromUser.userId,
-            userId: payload.user.userId,
+            fromUserId: payload?.user?.userId ?? null,
+            userId: payload?.fromUser?.userId ?? null,
             message: payload.message,
             room: payload.roomName});
         return payload;
