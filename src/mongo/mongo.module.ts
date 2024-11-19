@@ -15,7 +15,7 @@ import {ChatMessage, ChatSchema} from "./models/chat.message";
       }),
       MongooseModule.forFeature([{name: ChatMessage.name, schema: ChatSchema}])
   ],
-  exports: [MongoConfig],
+  exports: [MongoConfig, MongoService],
   providers: [MongoService, MongoConfig]
 })
 export class MongoModule {}

@@ -8,9 +8,12 @@ import {
 import {Server} from 'socket.io';
 import {Message} from "./interfaces/ws.interface";
 import {Logger} from "@nestjs/common";
+import {MongoService} from "../mongo/mongo.service";
 
 @WebSocketGateway({cors: {origin: '*'}})
 export class WsGateway implements  OnGatewayConnection, OnGatewayDisconnect{
+    constructor(private readonly mongoService: MongoService) {
+    }
 
     @WebSocketServer() server: Server;//new Server<ServerToClientEvents, ClientToServerEvents>();
     private logger = new Logger('ChatGateway')
@@ -41,7 +44,4 @@ export class WsGateway implements  OnGatewayConnection, OnGatewayDisconnect{
     async handleDisconnect(client: any) {
         this.logger.log(`Cliend id:${client.id} disconnected`);
     }
-
-
-
 }
