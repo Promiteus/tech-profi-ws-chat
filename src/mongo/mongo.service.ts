@@ -17,6 +17,8 @@ export class MongoService {
         return await new this.chatModel({
             ...chatDto,
             createdAt: new Date(),
+            isRead: false,
+            isNotified: false
         }).save();
     }
 
