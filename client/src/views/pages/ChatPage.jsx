@@ -66,14 +66,8 @@ const ChatPage = () => {
         }
 
         socket.emit('chat', {
-            user: {
-                user: user.userId,
-                userName: user?.userName,
-            },
-            fromUser: {
-                user: fUser?.userId,
-                userName: fUser?.userName,
-            },
+            user: user,
+            fromUser: fUser,
             roomName: roomName,
             message: val,
         })

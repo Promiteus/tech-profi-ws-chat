@@ -20,7 +20,6 @@ export class MongoService {
             isRead: false,
             isNotified: false
         };
-        console.warn("create: "+JSON.stringify(data))
         return await new this.chatModel(data).save();
     }
 
