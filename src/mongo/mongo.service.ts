@@ -9,7 +9,7 @@ export class MongoService {
     constructor(@InjectModel(ChatMessage.name) private readonly chatModel: Model<ChatDocument>) {
     }
 
-    async get() {
+    async getByPages() {
      //  const skippedItems = (page) * size;
       let result = await this.chatModel
            .$where("fromUserId")
