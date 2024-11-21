@@ -4,6 +4,7 @@ import {ChatDocument, ChatMessage} from "./models/chat.message";
 import {Model} from "mongoose";
 import {ChatMessageDto} from "./dto/chat.message.dto";
 import {ChatMsgPageableDto} from "./dto/chat.msg.pageable.dto";
+import {PageResponse} from "./dto/response/page.response";
 
 @Injectable()
 export class MongoService {
@@ -31,7 +32,7 @@ export class MongoService {
              .skip(skippedItems)
              .limit(dto.size)
              .exec();
-        return result;
+        return new PageResponse(result, dto.page, dto.size);
     }
 
     /**
