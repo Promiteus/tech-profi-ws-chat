@@ -3,10 +3,10 @@ import LoginLayout from "../layouts/LoginLayout";
 import {useNavigate} from "@tanstack/react-location";
 
 export const users = [
-    {userId: Date.now().toLocaleString().concat('Roman'), userName: 'Roman'},
-    {userId: Date.now().toLocaleString().concat('Egor'), userName: 'Egor'},
-    {userId: Date.now().toLocaleString().concat('Konstantin'), userName: 'Konstantin'},
-    {userId: Date.now().toLocaleString().concat('Artem'), userName: 'Artem'},
+    {userId: '9ba401b4-8616-4f92-9c3c-1ba1145bec50', userName: 'Roman'},
+    {userId: '37c5ccd8-9ad7-4697-a7e8-19983428e791', userName: 'Egor'},
+    {userId: 'a31d7a94-6bc1-4bb7-82ed-a7872e3debd5', userName: 'Konstantin'},
+    {userId: 'ea4633e8-8aef-4894-bfca-348eb512d50b', userName: 'Artem'},
 ];
 
 const LoginPage = () => {

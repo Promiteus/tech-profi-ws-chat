@@ -17,7 +17,7 @@ const ChatPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        socket = io("http://localhost:4000", {
+        socket = io("http://localhost:4001", {
             path: '/socket.io',
             transports: ['websocket'],
             autoConnect: true
