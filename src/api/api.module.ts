@@ -4,6 +4,7 @@ import {MongoModule} from "../mongo/mongo.module";
 
 @Module({
     providers: [ApiService],
-    imports: [MongoModule]
+    imports: [MongoModule],
+    controllers: [],
 })
 export class ApiModule {}

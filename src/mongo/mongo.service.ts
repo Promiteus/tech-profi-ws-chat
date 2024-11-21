@@ -9,6 +9,19 @@ export class MongoService {
     constructor(@InjectModel(ChatMessage.name) private readonly chatModel: Model<ChatDocument>) {
     }
 
+    async get() {
+     //  const skippedItems = (page) * size;
+      let result = await this.chatModel
+           .$where("fromUserId")
+           .equals("")
+           .$where("userId")
+           .equals("")
+           .skip(10)
+           .limit(30)
+           .exec();
+      return result;
+    }
+
     /**
      * Создать сообщение чата
      * @param chatDto ChatMessageDto
