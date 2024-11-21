@@ -8,11 +8,11 @@ import {
 import {Server} from 'socket.io';
 import {Message} from "./interfaces/ws.interface";
 import {Logger} from "@nestjs/common";
-import {MongoService} from "../mongo/mongo.service";
+import {MongoChatMsgService} from "../mongo/mongo.chat.msg.service";
 
 @WebSocketGateway({cors: {origin: '*'}})
 export class WsGateway implements  OnGatewayConnection, OnGatewayDisconnect{
-    constructor(private readonly mongoService: MongoService) {
+    constructor(private readonly mongoService: MongoChatMsgService) {
     }
 
     @WebSocketServer() server: Server;//new Server<ServerToClientEvents, ClientToServerEvents>();

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import {MongoService} from "../mongo/mongo.service";
+import {MongoChatMsgService} from "../mongo/mongo.chat.msg.service";
 import {ChatMsgPageableDto} from "../mongo/dto/chat.msg.pageable.dto";
 
 @Injectable()
 export class ApiService {
-    constructor(private readonly mongoService: MongoService) {
+    constructor(private readonly mongoService: MongoChatMsgService) {
     }
 
     /**

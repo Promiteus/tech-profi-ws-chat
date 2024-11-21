@@ -7,7 +7,7 @@ import {ChatMsgPageableDto} from "./dto/chat.msg.pageable.dto";
 import {PageResponse} from "./dto/response/page.response";
 
 @Injectable()
-export class MongoService {
+export class MongoChatMsgService {
     constructor(@InjectModel(ChatMessage.name) private readonly chatModel: Model<ChatDocument>) {
     }
 
