@@ -20,6 +20,7 @@ export class ApiController {
 
     @Delete(Api.MESSAGE+'/:id')
     async delete(@Param('id') id: string) {
+
         return await this.apiService.deleteChatMessage(id);
     }
 }

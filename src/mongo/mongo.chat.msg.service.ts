@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import {InjectModel} from "@nestjs/mongoose";
+import {Injectable, NotFoundException} from '@nestjs/common';
+import {InjectConnection, InjectModel} from "@nestjs/mongoose";
 import {ChatDocument, ChatMessage} from "./models/chat.message";
-import {Model} from "mongoose";
+import {Connection, Model} from "mongoose";
 import {ChatMessageDto} from "./dto/chat.message.dto";
 import {ChatMsgPageableDto} from "./dto/chat.msg.pageable.dto";
 import {PageResponse} from "./dto/response/page.response";
+import {ApiContants} from "../api/commons/api.contants";
 
 @Injectable()
 export class MongoChatMsgService {
-    constructor(@InjectModel(ChatMessage.name) private readonly chatModel: Model<ChatDocument>) {
+    constructor(@InjectModel(ChatMessage.name) private readonly chatModel: Model<ChatDocument>,
+                @InjectConnection() private readonly connection: Connection) {
     }
 
     /**
@@ -58,7 +60,24 @@ export class MongoChatMsgService {
      * Удалить сообщение чата
      * @param id string
      */
-    async delete(id: string): Promise<ChatMessage> {
-        return await this.chatModel.findByIdAndDelete(id).exec();
+    async delete(id: string) {
+        let session = await this.connection.startSession();
+        try {
+            session.startTransaction();
+
+            let chatItem = await this.chatModel.findOne({}).where("id").equals(id).exec();
+
+            if (!chatItem) {
+                await session.abortTransaction();
+                throw new NotFoundException(ApiContants.MSG_OBJECT_NOT_FOUND(id));
+            }
+
+            await this.chatModel.findByIdAndDelete(id).exec();
+            console.warn("id: "+id);
+            await session.commitTransaction();
+        } finally {
+            await session.endSession();
+        }
+        return id;
     }
 }
