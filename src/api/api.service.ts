@@ -15,4 +15,11 @@ export class ApiService {
         return await this.mongoService.getByPages(dto);
     }
 
+    /**
+     * Удалить выбранное сообщение
+     * @param id string
+     */
+    async deleteChatMessage(id: string) {
+        return await this.mongoService.delete(id);
+    }
 }

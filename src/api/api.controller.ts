@@ -1,9 +1,10 @@
-import {Controller, Get, Query} from '@nestjs/common';
+import {Controller, Delete, Get, Param, Query, UsePipes, ValidationPipe} from '@nestjs/common';
 import {ApiService} from "./api.service";
 import {ChatMsgPageableDto} from "../mongo/dto/chat.msg.pageable.dto";
 import {Api} from "./commons/api";
 
 @Controller('api')
+@UsePipes(new ValidationPipe({ transform: true}))
 export class ApiController {
     constructor(private readonly apiService: ApiService) {
     }
@@ -15,5 +16,10 @@ export class ApiController {
     @Get(Api.CHAT+Api.MESSAGES)
     async getChatMessagesByPages(@Query() query: ChatMsgPageableDto) {
        return await this.apiService.getChatMessagesByPages(query);
+    }
+
+    @Delete(':id')
+    async delete(@Param('id') id: string) {
+        return await this.apiService.deleteChatMessage(id);
     }
 }

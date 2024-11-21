@@ -18,10 +18,6 @@ export class MongoService {
     async getByPages(dto: ChatMsgPageableDto) {
         const skippedItems = (dto.page) * dto.size;
         let result = await this.chatModel
-             /*.where("fromUserId")
-             .equals(dto.fromUserId)
-             .where("userId")
-            .equals(dto.userId)*/
               .find({
                   $or:[
                       {'fromUserId': dto.fromUserId, 'userId': dto.userId},
