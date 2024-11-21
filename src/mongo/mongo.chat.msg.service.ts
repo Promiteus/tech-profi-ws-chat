@@ -65,7 +65,7 @@ export class MongoChatMsgService {
         try {
             session.startTransaction();
 
-            let chatItem = await this.chatModel.findOne({}).where("id").equals(id).exec();
+            let chatItem = await this.chatModel.findOne({}).where("_id").equals(id).exec();
 
             if (!chatItem) {
                 await session.abortTransaction();
@@ -73,7 +73,6 @@ export class MongoChatMsgService {
             }
 
             await this.chatModel.findByIdAndDelete(id).exec();
-            console.warn("id: "+id);
             await session.commitTransaction();
         } finally {
             await session.endSession();
