@@ -1,8 +1,12 @@
-import {IsInt, Min} from "class-validator";
+import {IsInt, IsNotEmpty, IsString, Min} from "class-validator";
 import {ApiValidateMessages} from "../../common/api.validate-messages";
 
 export class ChatMsgPageableDto {
+    @IsString({message: ApiValidateMessages.stringValidationMessage})
+    @IsNotEmpty({message: ApiValidateMessages.notEmptyValidationMessage})
     fromUserId: string;
+    @IsString({message: ApiValidateMessages.stringValidationMessage})
+    @IsNotEmpty({message: ApiValidateMessages.notEmptyValidationMessage})
     userId: string;
     @IsInt({message: ApiValidateMessages.intValidationMessage})
     @Min(0, {
