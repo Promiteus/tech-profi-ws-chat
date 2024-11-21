@@ -11,7 +11,7 @@ export class MongoService {
     }
 
     /**
-     * Получить переписку постранично
+     * Вернуть переписку с пользователем постранично
      * @param dto ChatMsgPageableDto
      */
     async getByPages(dto: ChatMsgPageableDto) {
