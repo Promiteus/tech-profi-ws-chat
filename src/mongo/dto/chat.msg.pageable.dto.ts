@@ -1,4 +1,4 @@
-import {IsInt, IsNotEmpty, isNumber, IsString, Min} from "class-validator";
+import {IsNotEmpty, IsString} from "class-validator";
 import {ApiValidateMessages} from "../../common/api.validate-messages";
 
 export class ChatMsgPageableDto {
