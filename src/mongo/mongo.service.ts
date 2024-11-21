@@ -3,23 +3,28 @@ import {InjectModel} from "@nestjs/mongoose";
 import {ChatDocument, ChatMessage} from "./models/chat.message";
 import {Model} from "mongoose";
 import {ChatMessageDto} from "./dto/chat.message.dto";
+import {ChatMsgPageableDto} from "./dto/chat.msg.pageable.dto";
 
 @Injectable()
 export class MongoService {
     constructor(@InjectModel(ChatMessage.name) private readonly chatModel: Model<ChatDocument>) {
     }
 
-    async getByPages() {
-     //  const skippedItems = (page) * size;
-      let result = await this.chatModel
-           .$where("fromUserId")
-           .equals("")
-           .$where("userId")
-           .equals("")
-           .skip(10)
-           .limit(30)
-           .exec();
-      return result;
+    /**
+     * Получить переписку постранично
+     * @param dto ChatMsgPageableDto
+     */
+    async getByPages(dto: ChatMsgPageableDto) {
+        const skippedItems = (dto.page) * dto.size;
+        let result = await this.chatModel
+             .$where("fromUserId")
+             .equals(dto.fromUserId)
+             .$where("userId")
+             .equals(dto.userId)
+             .skip(skippedItems)
+             .limit(dto.size)
+             .exec();
+        return result;
     }
 
     /**
