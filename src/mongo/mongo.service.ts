@@ -21,6 +21,7 @@ export class MongoService {
              .equals(dto.fromUserId)
              .$where("userId")
              .equals(dto.userId)
+             .sort({createdAt: "desc"})
              .skip(skippedItems)
              .limit(dto.size)
              .exec();
