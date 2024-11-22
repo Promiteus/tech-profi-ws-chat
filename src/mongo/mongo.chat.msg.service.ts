@@ -6,6 +6,7 @@ import {ChatMessageDto} from "./dto/chat.message.dto";
 import {ChatMsgPageableDto} from "./dto/chat.msg.pageable.dto";
 import {PageResponse} from "./dto/response/page.response";
 import {ApiContants} from "../api/commons/api.contants";
+import {UserChatDto} from "./dto/user.chat.dto";
 
 @Injectable()
 export class MongoChatMsgService {
@@ -56,8 +57,22 @@ export class MongoChatMsgService {
         return await this.chatModel.findByIdAndUpdate(id, chatDto).exec();
     }
 
-    async getChatsByPages() {
-
+    /**
+     * Получить список чатов пользователя
+     * @param dto UserChatDto
+     */
+    async getChatsByPages(dto: UserChatDto) {
+        const skippedItems = (dto.page) * dto.size;
+        return await this.chatModel.aggregate([
+         {
+            $match: { fromUserId: dto.userId }
+         }
+        ])
+            .group({ _id: "$userId" })
+            .sort({createdAt: "desc"})
+            .skip(skippedItems)
+            .limit(dto.size)
+            .exec();
     }
 
     /**
