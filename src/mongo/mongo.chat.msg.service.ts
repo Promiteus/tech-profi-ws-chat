@@ -67,12 +67,11 @@ export class MongoChatMsgService {
          {
             $match: { userId: dto.userId }
          }
-        ])
-            .group({ _id: {userId: "$userId", fromUserId: "$fromUserId"}, unReadCount: {$sum: {$cond: [{$eq:["$isRead", false]}, 1, 0]}}, detail: { $first: '$$ROOT' }, })
-            .sort({createdAt: "desc"})
-            .skip(skippedItems)
-            .limit(+dto.size)
-            .exec();
+        ]).sort({createdAt: "desc"})
+          .group({ _id: {userId: "$userId", fromUserId: "$fromUserId"}, unReadCount: {$sum: {$cond: [{$eq:["$isRead", false]}, 1, 0]}}, details: { $first: '$$ROOT' }, })
+          .skip(skippedItems)
+          .limit(+dto.size)
+          .exec();
     }
 
     /**
