@@ -56,6 +56,10 @@ export class MongoChatMsgService {
         return await this.chatModel.findByIdAndUpdate(id, chatDto).exec();
     }
 
+    async getChatsByPages() {
+
+    }
+
     /**
      * Удалить сообщение чата
      * @param id string
