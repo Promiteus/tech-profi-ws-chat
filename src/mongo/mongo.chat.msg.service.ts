@@ -62,16 +62,16 @@ export class MongoChatMsgService {
      * @param dto UserChatDto
      */
     async getChatsByPages(dto: UserChatDto) {
-        const skippedItems = (dto.page) * dto.size;
+        const skippedItems = +((dto.page) * dto.size);
         return await this.chatModel.aggregate([
          {
-            $match: { fromUserId: dto.userId }
+            $match: { userId: dto.userId }
          }
         ])
-            .group({ _id: "$userId" })
+            .group({ _id: {userId: "$userId", fromUserId: "$fromUserId"} })
             .sort({createdAt: "desc"})
             .skip(skippedItems)
-            .limit(dto.size)
+            .limit(+dto.size)
             .exec();
     }
 
