@@ -5,6 +5,7 @@ import {JwtMiddleware} from "./middlewares/jwt.middleware";
 import {RoleGuard} from "./roles/role.guard";
 import {RoleValidator} from "./roles/role.validator";
 import {RedisModule} from "../../redis/redis.module";
+import {RedisService} from "../../redis/redis.service";
 
 @Module({
   providers: [
