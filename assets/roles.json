@@ -1,0 +1,10 @@
+[
+  {
+    "method": "DELETE",
+    "url": "/api/users",
+    "roles": ["su"],
+    "option": null,
+    "optionName": null
+  }
+
+]

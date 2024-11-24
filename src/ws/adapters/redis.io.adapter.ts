@@ -10,9 +10,9 @@ export class RedisIoAdapter extends IoAdapter{
 
     async connectToRedis(app: INestApplication): Promise<void> {
         let config = app.get(ConfigService);
-        const host = config.getOrThrow('REDIS_HOST') ?? 'localhost';
-        const port = config.getOrThrow('REDIS_PORT') ?? 6379;
-        const password = config.getOrThrow('REDIS_PASSWORD') ?? '';
+        const host = config.getOrThrow('WS_REDIS_HOST') ?? 'localhost';
+        const port = config.getOrThrow('WS_REDIS_PORT') ?? 6379;
+        const password = config.getOrThrow('WS_REDIS_PASSWORD') ?? '';
 
         const pubClient = createClient({ url: `redis://${host}:${port}`, password: password });
         const subClient = pubClient.duplicate();
