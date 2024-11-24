@@ -34,7 +34,7 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_LOGIN}:${MONGO_ROOT_PASSWORD}@mongo:27017/
       ME_CONFIG_BASICAUTH: 0
 
-  wsredis:
+  ws-redis:
     image: redis
     container_name: pr_redis
     env_file:
