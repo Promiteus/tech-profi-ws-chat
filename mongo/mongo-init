@@ -1,0 +1,13 @@
+use profi_chat
+db.createUser(
+    {
+        user: "roman",
+        pwd: "12qwsa",
+        roles: [
+            {
+                role: "readWrite",
+                db: "profi_chat"
+            }
+        ]
+    }
+);

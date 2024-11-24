@@ -7,6 +7,6 @@ async function bootstrap() {
   const redisIoAdapter = new RedisIoAdapter(app);
   await redisIoAdapter.connectToRedis(app);
   app.useWebSocketAdapter(redisIoAdapter);
-  await app.listen(4000);
+  await app.listen(4001);
 }
 bootstrap();

@@ -36,7 +36,7 @@ const ChatMessageView = ({messages, currentUser}) => {
         <>
             <div ref={scrollChat} className="d-flex flex-column flex-grow-1 overflow-scroll card border border-dark p-3">
                 {messages.length > 0 ?
-                    messages.map((item, k) => <div key={k}><ChatBadgeView item={item} isMyMsg={item?.user?.user === currentUser?.userId}/></div>)
+                    messages.map((item, k) => <div key={k}><ChatBadgeView item={item} isMyMsg={item?.user?.userId === currentUser?.userId}/></div>)
                     : <div className="d-flex justify-content-center text-danger">
                         <div className="card shadow p-2">
                             Здесь пока нет сообщений!

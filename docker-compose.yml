@@ -1,13 +1,47 @@
 version: "3.7"
 services:
 
+  mongo:
+    env_file:
+      - .env
+    image: mongo
+    container_name: pr_mongo
+    #restart: on-failure
+    ports:
+    - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_LOGIN}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB_NAME}
+    volumes:
+      - ./mongo/mongo-init:/etc/mongo-init:ro
+      - ./mongo/init-user.sh:/etc/init-user.sh
+      - mongodata:/data/db
+
+  mongo-express:
+    env_file:
+      - .env
+    image: mongo-express
+    container_name: pr_mongo_express
+    depends_on:
+      - mongo
+    #restart: on-failure
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_LOGIN}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_LOGIN}:${MONGO_ROOT_PASSWORD}@mongo:27017/
+      ME_CONFIG_BASICAUTH: 0
+
   redis:
     image: redis
+    container_name: pr_redis
     env_file:
       - .env
     command: redis-server --requirepass ${REDIS_PASSWORD}
     volumes:
-      - ./redis/storage:/data
+      - redisdata:/data
     ports:
       - 6379:6379
     networks:
@@ -17,4 +51,12 @@ networks:
   profi-net:
     external:
       name: profi-network
+
+volumes:
+  redisdata:
+    name: redis-pr
+    external: true
+  mongodata:
+    name: mngdb-pr
+    external: true
 

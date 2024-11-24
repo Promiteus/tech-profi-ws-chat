@@ -4,17 +4,10 @@ export interface User {
     socketId: string
 }
 
-export interface Room {
-    name: string
-    host: User
-    users: User[]
-}
-
 export interface Message {
     user: User
-    timeSent: string
+    fromUser: User
     message: string
     roomName: string
-    join: boolean
 }
 
