@@ -6,7 +6,7 @@ import {AuthModule} from "../jwt/auth.module";
 
 @Module({
     providers: [ApiService],
-    imports: [MongoModule],
+    imports: [MongoModule, AuthModule],
     controllers: [ApiController],
 })
 export class ApiModule {}
