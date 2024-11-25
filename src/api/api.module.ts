@@ -5,6 +5,8 @@ import { ApiController } from './api.controller';
 import {AuthModule} from "../jwt/auth.module";
 import {JwtMiddleware} from "../jwt/middlewares/jwt.middleware";
 import {RedisModule} from "../../redis/redis.module";
+import {UserMiddleware} from "./middlewares/user.middleware";
+import {Api} from "./commons/api";
 
 @Module({
     providers: [ApiService],
@@ -21,5 +23,9 @@ export class ApiModule implements NestModule {
             path: '*',
             method: RequestMethod.ALL
         });
+        consumer.apply(UserMiddleware).forRoutes({
+            path: `*${Api.CHAT}*`,
+            method: RequestMethod.ALL
+        })
     }
 }
