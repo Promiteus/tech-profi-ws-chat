@@ -1,13 +1,15 @@
-import {Injectable, UnauthorizedException} from '@nestjs/common';
+import {Injectable, Logger, UnauthorizedException} from '@nestjs/common';
 import {JwtCommon} from "./common/JwtCommon";
 import * as fs from "fs";
 import {JwtService} from "@nestjs/jwt";
 import {Request, Response} from 'express';
 import {UserDto} from "./dto/user.dto";
+import {WsException} from "@nestjs/websockets";
 
 @Injectable()
 export class JwtValidator {
     private readonly secret: string;
+    private log: Logger = new Logger();
 
     constructor(private jwtService: JwtService) {
        this.secret = fs.readFileSync(process.cwd()+'/assets/public.key').toString().trim();
@@ -47,6 +49,21 @@ export class JwtValidator {
         }
 
         return payload
+    }
+
+    public async validateToken(token: string) {
+        if (!token) {
+            throw new UnauthorizedException(JwtCommon.MSG_EMPTY_TOKEN());
+        }
+        let payload = null;
+        try {
+            payload = await this.jwtService.verifyAsync(token, {secret: this.secret})
+        } catch (e) {            //throw new UnauthorizedException(JwtCommon.MSG_INVALID_TOKEN(e));
+            this.log.error(`${this} ${e?.toString()}`)
+            return {payload: null, error: e?.toString()}
+        }
+
+        return {payload: payload, error: null}
     }
 
     private extractToken(request: Request) {
