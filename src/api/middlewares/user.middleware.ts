@@ -12,8 +12,10 @@ export class UserMiddleware implements NestMiddleware {
 
         let userId = req.query['userId'] ?? '';
         if (req.method === "DELETE") {
+            console.warn("delete: "+req.params[1])
             userId = req.params['fromUserId'] ?? '';
         }
+        console.warn("userId: "+userId)
         const tokenUserId = user?.id ?? '';
 
         if (user?.userType.name === UserTypes?.user) {
