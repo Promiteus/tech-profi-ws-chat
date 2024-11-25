@@ -16,11 +16,14 @@ const ChatPage = () => {
     const roomName = sessionStorage.getItem('room_ws');
     const navigate = useNavigate();
 
+    const jwtToken = '3874387'
+
     useEffect(() => {
         socket = io("http://localhost:4001", {
             path: '/socket.io',
             transports: ['websocket'],
-            autoConnect: true
+            autoConnect: true,
+            extraHeaders: { Authorization: `Bearer ${jwtToken}`}
         });
 
         if (!user) {
