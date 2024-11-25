@@ -1,4 +1,4 @@
-import {Controller, Delete, Get, Param, Query, UsePipes, ValidationPipe} from '@nestjs/common';
+import {Controller, Delete, Get, Query, UsePipes, ValidationPipe} from '@nestjs/common';
 import {ApiService} from "./api.service";
 import {ChatMsgPageableDto} from "../mongo/dto/chat.msg.pageable.dto";
 import {Api} from "./commons/api";
