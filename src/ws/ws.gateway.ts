@@ -7,9 +7,11 @@ import {
 } from "@nestjs/websockets";
 import {Server} from 'socket.io';
 import {Message} from "./interfaces/ws.interface";
-import {Logger} from "@nestjs/common";
+import {Logger, UseGuards} from "@nestjs/common";
 import {MongoChatMsgService} from "../mongo/mongo.chat.msg.service";
+import {WsGuard} from "./guards/ws.guard";
 
+@UseGuards(WsGuard)
 @WebSocketGateway({cors: {origin: '*'}})
 export class WsGateway implements  OnGatewayConnection, OnGatewayDisconnect{
     constructor(private readonly mongoService: MongoChatMsgService) {

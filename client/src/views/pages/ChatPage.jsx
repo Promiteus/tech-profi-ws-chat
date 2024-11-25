@@ -23,7 +23,7 @@ const ChatPage = () => {
             path: '/socket.io',
             transports: ['websocket'],
             autoConnect: true,
-            extraHeaders: { Authorization: `Bearer ${jwtToken}`}
+            query: {jwt: jwtToken}
         });
 
         if (!user) {
