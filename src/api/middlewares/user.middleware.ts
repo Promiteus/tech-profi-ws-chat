@@ -10,7 +10,10 @@ export class UserMiddleware implements NestMiddleware {
     async use(req: Request, res: Response, next: NextFunction) {
         const user = JwtValidator.getUserFromHeader(res);
 
-        const userId = req.query['userId'] ?? '';
+        let userId = req.query['userId'] ?? '';
+        if (req.method === "DELETE") {
+            userId = req.params['fromUserId'] ?? '';
+        }
         const tokenUserId = user?.id ?? '';
 
         if (user?.userType.name === UserTypes?.user) {
