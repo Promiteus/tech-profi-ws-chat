@@ -23,9 +23,9 @@ export class ApiController {
      * Удалить сообщение чата по id
      * @param id string
      */
-    @Delete(Api.MESSAGE+'/:id')
-    async delete(@Param('id') id: string) {
-        return await this.apiService.deleteChatMessage(id);
+    @Delete(Api.MESSAGE+'/:id/:fromUserId')
+    async delete(@Param('id') id: string, fromUserId: string) {
+        return await this.apiService.deleteChatMessage(id, fromUserId);
     }
 
     /**

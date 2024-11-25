@@ -7,6 +7,7 @@ import {ChatMsgPageableDto} from "./dto/chat.msg.pageable.dto";
 import {PageResponse} from "./dto/response/page.response";
 import {ApiContants} from "../api/commons/api.contants";
 import {UserChatDto} from "./dto/user.chat.dto";
+import {from} from "rxjs";
 
 @Injectable()
 export class MongoChatMsgService {
@@ -77,13 +78,19 @@ export class MongoChatMsgService {
     /**
      * Удалить сообщение чата
      * @param id string
+     * @param fromUserId string
      */
-    async delete(id: string) {
+    async delete(id: string, fromUserId: string) {
         let session = await this.connection.startSession();
         try {
             session.startTransaction();
 
-            let chatItem = await this.chatModel.findOne({}).where("_id").equals(id).exec();
+            let chatItem = await this.chatModel
+                .findOne({})
+                .where("_id")
+                .equals(id).where("fromUserId")
+                .equals(fromUserId)
+                .exec();
 
             if (!chatItem) {
                 await session.abortTransaction();

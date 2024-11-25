@@ -20,8 +20,8 @@ export class ApiService {
      * Удалить выбранное сообщение
      * @param id string
      */
-    async deleteChatMessage(id: string) {
-        return await this.mongoService.delete(id);
+    async deleteChatMessage(id: string, fromUserId: string) {
+        return await this.mongoService.delete(id, fromUserId);
     }
 
     /**
